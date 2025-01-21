@@ -8,15 +8,18 @@
     "dev": "npm run dev-client && npm run dev-server",
     "dev-client": "cd client && npm run dev",
     "dev-server": "cd server && npm run dev",
-    "quickstart": "npm run install && npm run start",
-    "install": "npm run install-server && npm run install-client",
+    "quickstart": "npm run install && npm run install-deps && npm run start-deps",
+    "install-deps": "npm run install-server && npm run install-client",
     "install-client": "cd client && npm install",
     "install-server": "cd server && npm install",
-    "start": "npm run start-client && npm run start-server",
-    "start-client": "cd client && npm start",
-    "start-server": "cd server && npm start"
+    "start-deps": "concurrently \"npm run start-client\" \"npm run start-server\"",
+    "start-client": "cd client && npm run dev",
+    "start-server": "cd server && npm run dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
