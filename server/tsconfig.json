@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "moduleResolution": "nodenext",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    // "module": "commonjs",
+    "outDir": "./dist"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}
