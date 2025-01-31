@@ -16,8 +16,9 @@ import { get, put, destroy } from '@/utils/api';
 import { useStore } from '@/utils/store';
 import UserAvatar from '@/components/UserAvatar';
 import EditableText from '@/components/EditableText';
+import DateComp from '@/components/DateComp';
 
-// TODO: 
+// TODO:
 // Consider updating the select warning issue with help from SO link below
 // https://stackoverflow.com/questions/76159113/material-ui-you-have-provided-an-out-of-range-value-for-the-select-component-d
 
@@ -37,6 +38,7 @@ export default function TicketDetail() {
   const getTicketDetail = async () => {
     // need to get the route params
     const ticketResult = await get(`/tickets/${ticketId}`);
+    console.log(ticketResult);
     setTicket(ticketResult);
     setTitle(ticketResult.title);
     setDescription(ticketResult.description);
@@ -94,12 +96,14 @@ export default function TicketDetail() {
             }}
           />
           <Box display="flex" gap={5}>
-            <Typography variant="body1">
-              Created: {ticket?.createdAt.toString()}
-            </Typography>
-            <Typography variant="body1">
-              Updated: {ticket?.updatedAt.toString()}
-            </Typography>
+            <Box display="flex" gap={1}>
+              <Typography variant="body1">Created:</Typography>
+              <DateComp date={ticket?.createdAt} />
+            </Box>
+            <Box display="flex" gap={1}>
+              <Typography variant="body1">Updated:</Typography>
+              <DateComp date={ticket?.updatedAt} />
+            </Box>
           </Box>
 
           <Box>
