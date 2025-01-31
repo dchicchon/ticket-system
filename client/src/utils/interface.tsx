@@ -5,20 +5,20 @@ export interface TicketType {
   status: string;
   createdBy: string;
   assignedUser: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface UserType {
   id: string;
   username: string;
   role: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface EventType {
   user: string;
-  timestamp: Date;
+  timestamp: string;
   description: string;
 }

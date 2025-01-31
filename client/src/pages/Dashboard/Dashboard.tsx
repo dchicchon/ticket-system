@@ -43,7 +43,8 @@ export default function Dashboard() {
                   key={i}
                   id={ticket.id}
                   title={ticket.title}
-                  description={ticket.description}
+                  updatedAt={ticket.updatedAt}
+                  assignedUser={ticket.assignedUser}
                 />
               ))}
             </Stack>
@@ -58,7 +59,9 @@ export default function Dashboard() {
                   key={i}
                   id={ticket.id}
                   title={ticket.title}
-                  description={ticket.description}
+                  updatedAt={ticket.updatedAt}
+                  assignedUser={ticket.assignedUser}
+                  // description={ticket.description}
                 />
               ))}
             </Stack>
@@ -73,7 +76,9 @@ export default function Dashboard() {
                   key={i}
                   id={ticket.id}
                   title={ticket.title}
-                  description={ticket.description}
+                  updatedAt={ticket.updatedAt}
+                  assignedUser={ticket.assignedUser}
+                  // description={ticket.description}
                 />
               ))}
             </Stack>

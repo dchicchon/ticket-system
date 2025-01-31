@@ -9,7 +9,11 @@ import { UserType } from '@/utils/interface';
 import { destroy, get } from '@/utils/api';
 import { useStore } from '@/utils/store';
 
-function UserCard(props: object) {
+interface UserCardProps {
+  user: UserType;
+}
+
+function UserCard(props: UserCardProps) {
   const successMessage = useStore((state) => state.successMessage);
 
   // can only do this if you are an admin
@@ -52,7 +56,7 @@ export default function Users() {
     <Page>
       <Paper sx={{ p: 2 }}>
         <Typography variant="h6">Users</Typography>
-        <Stack gap={2}>
+        <Stack sx={{ height: '80vh' }} overflow="scroll" gap={2}>
           {users.map((user, i) => (
             <UserCard key={i} user={user} />
           ))}

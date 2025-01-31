@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { TicketType } from '@/utils/interface';
+import { TicketType, UserType } from '@/utils/interface';
 import { get, put, destroy } from '@/utils/api';
 import { useStore } from '@/utils/store';
 import UserAvatar from '@/components/UserAvatar';
@@ -28,17 +28,16 @@ export default function TicketDetail() {
 
   const successMessage = useStore((state) => state.successMessage);
 
-  const [ticket, setTicket] = useState<TicketType | null>(null);
+  const [ticket, setTicket] = useState<TicketType>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
   const [assignedUser, setAssignedUser] = useState('');
-  const [assignableUsers, setAssignableUsers] = useState([]);
+  const [assignableUsers, setAssignableUsers] = useState<Array<UserType>>([]);
 
   const getTicketDetail = async () => {
     // need to get the route params
     const ticketResult = await get(`/tickets/${ticketId}`);
-    console.log(ticketResult);
     setTicket(ticketResult);
     setTitle(ticketResult.title);
     setDescription(ticketResult.description);

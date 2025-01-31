@@ -34,7 +34,7 @@ export default function AuditTrail() {
     <Page>
       <Paper sx={{ p: 2 }}>
         <Typography variant="h6">Audit Trail</Typography>
-        <Stack gap={2}>
+        <Stack sx={{ height: '80vh' }} overflow="scroll" gap={2}>
           {events.map((event, i) => (
             <EventCard
               key={i}
