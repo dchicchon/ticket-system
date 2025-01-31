@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router';
 
 import Link from '@/components/Link';
@@ -20,6 +20,11 @@ const roleLevel = {
   customer: 1,
 };
 
+interface LinkType {
+  role: string;
+  route: string;
+  title: string;
+}
 const links = [
   {
     role: 'admin',
@@ -51,9 +56,16 @@ const links = [
 export default function Navbar() {
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
-  const views = links.filter((link) => {
-    return roleLevel[link.role] <= roleLevel[user.role];
-  });
+  const [views, setViews] = useState<Array<LinkType>>([]);
+
+  useEffect(() => {
+    if (user) {
+      const userViews = links.filter((link: LinkType) => {
+        return roleLevel[link.role] <= roleLevel[user.role];
+      });
+      setViews(userViews);
+    }
+  }, [user]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

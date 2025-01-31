@@ -13,6 +13,7 @@ import { get } from '@/utils/api';
 const Wrapper = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
+  const token = useStore(state => state.token)
   const setUser = useStore((state) => state.setUser);
   const severity = useStore((state) => state.severity);
   const closeMessage = useStore((state) => state.closeMessage);
@@ -26,7 +27,7 @@ const Wrapper = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (!user) {

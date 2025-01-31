@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [completedTickets, setCompletedTickets] = useState<Array<TicketType>>([]);
 
   const getTickets = async () => {
-    const data = await get('/tickets', { debug: true });
+    const data = await get('/tickets');
     const todo = data.list.filter((ticket: TicketType) => ticket.status === 'todo');
     const inprogress = data.list.filter(
       (ticket: TicketType) => ticket.status === 'inprogress'

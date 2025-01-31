@@ -12,7 +12,7 @@ export default function Login() {
   // const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const setUser = useStore((state) => state.setUser);
+  // const setUser = useStore((state) => state.setUser);
   const setToken = useStore((state) => state.setToken);
 
   const login = async () => {
@@ -22,7 +22,6 @@ export default function Login() {
     };
     const data = await post('/auth/login', body, { debug: true });
     setToken(data.token);
-    setUser(data);
   };
 
   return (

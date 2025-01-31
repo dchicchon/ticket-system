@@ -18,7 +18,9 @@ export default function Ticket(props) {
       className={styles.ticketWrapper}
       sx={{ p: 1 }}
     >
-      <Typography variant="h6">{props.title}</Typography>
+      <Typography sx={{ fontWeight: 900 }} variant="body1">
+        {props.title}
+      </Typography>
       <Typography variant="body1">{props.description}</Typography>
     </Paper>
   );

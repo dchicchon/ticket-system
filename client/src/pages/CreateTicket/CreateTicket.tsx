@@ -19,7 +19,7 @@ export default function CreateTicket() {
   const createTicket = async () => {
     const result = await post('/tickets', { title, description }, { debug: true });
     if (result) {
-      navigate('/')
+      navigate('/');
       successMessage('Ticket created');
     }
   };
@@ -35,6 +35,7 @@ export default function CreateTicket() {
             label="Title"
           />
           <TextField
+            multiline
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             label="Description"

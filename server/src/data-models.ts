@@ -105,6 +105,8 @@ export const seed = async () => {
     );
     if (admin) {
       console.log('Admin created');
+    } else {
+      console.log('Admin already created')
     }
   } catch (err) {}
 };

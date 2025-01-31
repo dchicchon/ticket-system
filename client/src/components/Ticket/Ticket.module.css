@@ -1,3 +1,4 @@
 .ticketWrapper {
   cursor: pointer;
+  user-select: none;
 }

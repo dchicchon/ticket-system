@@ -1,0 +1,17 @@
+.box {
+  border: 1px solid;
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.3);
+  transition: border 0.1s ease-in;
+  display: flex;
+  flex-direction: column;
+  white-space: pre-wrap;
+}
+
+.box:hover {
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.editingBox {
+  border: 1px transparent;
+}

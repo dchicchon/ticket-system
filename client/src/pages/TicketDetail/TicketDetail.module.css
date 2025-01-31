@@ -1,0 +1,11 @@
+.description {
+  border: 1px solid;
+  border-color: rgba(255, 255, 255, 0.3);
+  transition: border 0.1s ease-in;
+}
+
+.description:hover {
+  cursor: pointer;
+  border: 1px solid;
+  border-color: white;
+}

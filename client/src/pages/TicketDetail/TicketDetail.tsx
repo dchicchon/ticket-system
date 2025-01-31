@@ -4,16 +4,21 @@ import { useNavigate, useParams } from 'react-router';
 import Container from '@mui/material/Container';
 import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { TicketType } from '@/utils/interface';
 
 import { get, put, destroy } from '@/utils/api';
 import { useStore } from '@/utils/store';
+
+import styles from './TicketDetail.module.css';
+import EditableText from '@/components/EditableText';
 
 export default function TicketDetail() {
   const { ticketId } = useParams();
@@ -29,7 +34,6 @@ export default function TicketDetail() {
   const getTicketDetail = async () => {
     // need to get the route params
     const ticketResult = await get(`/tickets/${ticketId}`);
-
     setTicket(ticketResult);
     setTitle(ticketResult.title);
     setDescription(ticketResult.description);
@@ -67,14 +71,35 @@ export default function TicketDetail() {
     <Container sx={{ p: 2, height: '100%' }} maxWidth="xl">
       <Paper sx={{ p: 2 }}>
         <Stack gap={2} sx={{ width: '50%' }}>
-          <Typography variant="h4">{title}</Typography>
-          <Typography variant="body1">Created: {ticket?.createdAt.toString()}</Typography>
-          <Typography variant="body1">Updated: {ticket?.updatedAt.toString()}</Typography>
+          <EditableText
+            sx={{fontSize: 100}}
+            variant="standard"
+            value={title}
+            onSave={(text: string) => {
+              updateTicket({ title: text });
+            }}
+          />
+          {/* <Typography variant="h4">{title}</Typography> */}
+          <Box display="flex" gap={5}>
+            <Typography variant="body1">
+              Created: {ticket?.createdAt.toString()}
+            </Typography>
+            <Typography variant="body1">
+              Updated: {ticket?.updatedAt.toString()}
+            </Typography>
+          </Box>
           <Typography variant="body1">Created By : {ticket?.createdBy}</Typography>
           <Typography variant="body1">
             Assigned To : {ticket?.assignedUser || 'None'}
           </Typography>
-          <Typography variant="body1">Description: {description}</Typography>
+          <Typography variant="h6">Description</Typography>
+          <EditableText
+            sx={{ p: 1, borderRadius: 1 }}
+            value={description}
+            onSave={(text: string) => {
+              updateTicket({ description: text });
+            }}
+          />
           <InputLabel>Status</InputLabel>
           <Select label="Status" value={status} onChange={handleChange}>
             <MenuItem value="todo">To Do</MenuItem>

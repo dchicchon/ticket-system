@@ -8,7 +8,7 @@
     "dev": "npm run dev-client && npm run dev-server",
     "dev-client": "cd client && npm run dev",
     "dev-server": "cd server && npm run dev",
-    "quickstart": "npm run install && npm run install-deps && npm run start-deps",
+    "quickstart": "npm install && npm run install-deps && npm run start-deps",
     "install-deps": "npm run install-server && npm run install-client",
     "install-client": "cd client && npm install",
     "install-server": "cd server && npm install",
