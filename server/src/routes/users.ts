@@ -1,6 +1,7 @@
 import express from 'express';
 import { User } from '../data-models.js';
 import { createEvent } from '../utils.js';
+import { Op, WhereOptions } from 'sequelize';
 
 const router = express.Router();
 
@@ -12,8 +13,24 @@ const getUser = async (id) => {
   return userData.toJSON();
 };
 
+const roleLevel = {
+  admin: 3,
+  employee: 2,
+  customer: 1,
+};
+
 router.get('/', async (req, res) => {
-  const users = await User.findAll();
+  const { role } = req.query;
+  const filter: WhereOptions = {};
+  if (role) {
+    const filteredRoles = Object.keys(roleLevel).filter((roleKey) => {
+      return roleLevel[roleKey] >= role;
+    });
+    filter.role = {
+      [Op.in]: filteredRoles,
+    };
+  }
+  const users = await User.findAll({ where: filter });
   res.json(users);
 });
 

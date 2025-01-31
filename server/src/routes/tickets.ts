@@ -50,9 +50,7 @@ router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const result = await Ticket.update(
     {
-      title: req.body.title,
-      description: req.body.description,
-      status: req.body.status,
+      ...req.body,
     },
     {
       where: {

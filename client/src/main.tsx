@@ -1,6 +1,5 @@
 // import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -13,6 +12,7 @@ import Users from './pages/Users/Users';
 import AuditTrail from './pages/AuditTrail';
 import CreateUser from './pages/CreateUser';
 import CreateTicket from './pages/CreateTicket';
+import './index.css';
 
 const theme = createTheme({
   palette: {

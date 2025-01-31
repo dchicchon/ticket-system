@@ -13,7 +13,7 @@ interface options {
   debug: boolean;
 }
 
-export const get = async (route: string, options: options | undefined) => {
+export const get = async (route: string, options?: options | undefined) => {
   const errorMessage = useStore.getState().errorMessage;
   try {
     const response = await fetch(`${BASE_URL}${route}`, {
@@ -37,7 +37,7 @@ export const get = async (route: string, options: options | undefined) => {
   }
 };
 
-export const post = async (route: string, data: object, options: options | null) => {
+export const post = async (route: string, data: object, options?: options | null) => {
   const errorMessage = useStore.getState().errorMessage;
   try {
     const response = await fetch(`${BASE_URL}${route}`, {
@@ -66,7 +66,7 @@ export const post = async (route: string, data: object, options: options | null)
   }
 };
 
-export const put = async (route: string, data: object, options: options | null) => {
+export const put = async (route: string, data: object, options?: options | null) => {
   const errorMessage = useStore.getState().errorMessage;
   try {
     const response = await fetch(`${BASE_URL}${route}`, {
@@ -95,7 +95,7 @@ export const put = async (route: string, data: object, options: options | null) 
   }
 };
 
-export const destroy = async (route: string, options: options | null) => {
+export const destroy = async (route: string, options?: options | null) => {
   const errorMessage = useStore.getState().errorMessage;
   try {
     const response = await fetch(`${BASE_URL}${route}`, {

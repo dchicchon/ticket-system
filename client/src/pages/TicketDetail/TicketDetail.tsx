@@ -9,16 +9,17 @@ import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { TicketType } from '@/utils/interface';
-
 import { get, put, destroy } from '@/utils/api';
 import { useStore } from '@/utils/store';
-
-import styles from './TicketDetail.module.css';
+import UserAvatar from '@/components/UserAvatar';
 import EditableText from '@/components/EditableText';
+
+// TODO: 
+// Consider updating the select warning issue with help from SO link below
+// https://stackoverflow.com/questions/76159113/material-ui-you-have-provided-an-out-of-range-value-for-the-select-component-d
 
 export default function TicketDetail() {
   const { ticketId } = useParams();
@@ -30,6 +31,8 @@ export default function TicketDetail() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
+  const [assignedUser, setAssignedUser] = useState('');
+  const [assignableUsers, setAssignableUsers] = useState([]);
 
   const getTicketDetail = async () => {
     // need to get the route params
@@ -38,6 +41,12 @@ export default function TicketDetail() {
     setTitle(ticketResult.title);
     setDescription(ticketResult.description);
     setStatus(ticketResult.status);
+    setAssignedUser(ticketResult.assignedUser || 'Unassigned');
+  };
+
+  const getAssignableUsers = async () => {
+    const usersResult = await get(`/users?role=2`);
+    setAssignableUsers(usersResult);
   };
 
   const deleteTicket = async () => {
@@ -57,14 +66,19 @@ export default function TicketDetail() {
     }
   };
 
-  const handleChange = (e: SelectChangeEvent) => {
+  const handleStatusChange = (e: SelectChangeEvent) => {
     setStatus(e.target.value);
     updateTicket({ status: e.target.value });
   };
 
+  const handleAssignedUser = (e: SelectChangeEvent) => {
+    setAssignedUser(e.target.value);
+    updateTicket({ assignedUser: e.target.value });
+  };
+
   useEffect(() => {
-    console.log('retrieve ticket data');
     getTicketDetail();
+    getAssignableUsers();
   }, []);
 
   return (
@@ -72,14 +86,13 @@ export default function TicketDetail() {
       <Paper sx={{ p: 2 }}>
         <Stack gap={2} sx={{ width: '50%' }}>
           <EditableText
-            sx={{fontSize: 100}}
+            sx={{ fontSize: 100 }}
             variant="standard"
             value={title}
             onSave={(text: string) => {
               updateTicket({ title: text });
             }}
           />
-          {/* <Typography variant="h4">{title}</Typography> */}
           <Box display="flex" gap={5}>
             <Typography variant="body1">
               Created: {ticket?.createdAt.toString()}
@@ -88,10 +101,33 @@ export default function TicketDetail() {
               Updated: {ticket?.updatedAt.toString()}
             </Typography>
           </Box>
-          <Typography variant="body1">Created By : {ticket?.createdBy}</Typography>
-          <Typography variant="body1">
-            Assigned To : {ticket?.assignedUser || 'None'}
-          </Typography>
+
+          <Box>
+            <Box sx={{ mb: 1 }} display="flex" alignItems="center">
+              <Typography variant="body1">Created by: </Typography>
+              <UserAvatar sx={{ ml: 1 }} user={ticket?.createdBy} />
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Typography variant="body1">Assigned to:</Typography>
+              <Select sx={{ ml: 1 }} value={assignedUser} onChange={handleAssignedUser}>
+                {assignableUsers.map((user, i) => (
+                  <MenuItem value={user.username} key={i}>
+                    <UserAvatar user={user?.username} />
+                  </MenuItem>
+                ))}
+                <MenuItem value="Unassigned">
+                  <UserAvatar user={'Unassigned'} />
+                </MenuItem>
+              </Select>
+            </Box>
+          </Box>
+
+          <InputLabel>Status</InputLabel>
+          <Select label="Status" value={status} onChange={handleStatusChange}>
+            <MenuItem value="todo">To Do</MenuItem>
+            <MenuItem value="inprogress">In Progress</MenuItem>
+            <MenuItem value="completed">Completed</MenuItem>
+          </Select>
           <Typography variant="h6">Description</Typography>
           <EditableText
             sx={{ p: 1, borderRadius: 1 }}
@@ -100,12 +136,7 @@ export default function TicketDetail() {
               updateTicket({ description: text });
             }}
           />
-          <InputLabel>Status</InputLabel>
-          <Select label="Status" value={status} onChange={handleChange}>
-            <MenuItem value="todo">To Do</MenuItem>
-            <MenuItem value="inprogress">In Progress</MenuItem>
-            <MenuItem value="completed">Completed</MenuItem>
-          </Select>
+
           <Button variant="outlined" color="error" onClick={deleteTicket}>
             Delete Ticket
           </Button>

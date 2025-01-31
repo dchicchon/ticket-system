@@ -35,9 +35,9 @@ export default function Dashboard() {
     <Page>
       <Grid sx={{ height: '75%' }} container gap={3}>
         <Grid size={3}>
-          <Paper sx={{ p: 1, height: '100%' }}>
-            <Typography>To Do</Typography>
-            <Stack gap={2}>
+          <Typography>To Do</Typography>
+          <Paper sx={{ p: 1, height: '80vh' }}>
+            <Stack sx={{ height: '100%', overflowY: 'auto' }} gap={2}>
               {todoTickets.map((ticket, i) => (
                 <Ticket
                   key={i}
@@ -50,9 +50,9 @@ export default function Dashboard() {
           </Paper>
         </Grid>
         <Grid size={3}>
-          <Paper sx={{ p: 1, height: '100%' }}>
-            <Typography>In Progress</Typography>
-            <Stack gap={2}>
+          <Typography>In Progress</Typography>
+          <Paper sx={{ p: 1, height: '80vh' }}>
+            <Stack sx={{ height: '100%', overflowY: 'auto' }} gap={2}>
               {pendingTickets.map((ticket, i) => (
                 <Ticket
                   key={i}
@@ -65,9 +65,9 @@ export default function Dashboard() {
           </Paper>
         </Grid>
         <Grid size={3}>
-          <Paper sx={{ p: 1, height: '100%' }}>
-            <Typography>Completed</Typography>
-            <Stack gap={2}>
+          <Typography>Completed</Typography>
+          <Paper sx={{ p: 1, height: '80vh' }}>
+            <Stack sx={{ maxHeight: '100%', overflowY: 'auto' }} gap={2}>
               {completedTickets.map((ticket, i) => (
                 <Ticket
                   key={i}
